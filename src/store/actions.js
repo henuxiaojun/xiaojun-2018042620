@@ -64,5 +64,39 @@ export default {
    */
   filterTodos ({ state, commit }, type) {
     commit('SET_VISIBILITY', type)
+  },
+  /*
+  * 删除单个todo API
+  * */
+  removeTodo ({ state, commit }, id) {
+    window.restApi.delete(`/todo/${id}`, res => {
+      commit('DELETE_TODO', id)
+    }, err => {
+      console.error('removeTodo error: %o', err)
+    })
+  },
+  /*
+  * 选中单个数据
+  * */
+  toggleOne ({ state, commit }, todo) {
+    window.restApi.put(`/todo/${todo.id}`, {
+      completed: todo.completed
+    }, res => {
+      // 切换成功！
+    }, err => {
+      console.error('toggleOne error: %o', err)
+    })
+  },
+  /*
+  * 更新数据
+  * */
+  updateTodo ({ state, commit }, data) {
+    window.restApi.put(`/todo/${data.todo.id}`, {
+      title: data.title
+    }, res => {
+      commit('UPDATE_TODO', data)
+    }, err => {
+      console.error('updateTodo error: %o', err)
+    })
   }
 }

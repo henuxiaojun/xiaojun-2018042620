@@ -39,5 +39,27 @@ export default {
    */
   SET_VISIBILITY (state, type) {
     state.visibility = type
+  },
+  /*
+  * 删除单个todo
+  *
+  **/
+  DELETE_TODO (state, id) {
+    for (let i = 0; i < state.todos.length; i++) {
+      if (state.todos[i].id === id) {
+        state.todos.splice(i, 1)
+        return
+      }
+    }
+  },
+  /*
+  * 更新todo的title
+  * */
+  UPDATE_TODO (state, data) {
+    for (let i = 0; i < state.todos.length; i++) {
+      if (state.todos[i].id === data.todo.id) {
+        state.todos[i].title = data.title
+      }
+    }
   }
 }
